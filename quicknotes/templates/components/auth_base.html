@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}QuickNote - Your Personal Finance Assistant{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    </head>
+    <body class="bg-beige-100">
+        <div class="min-h-screen flex flex-col">
+            <header class="py-4">
+                <div class="container mx-auto">
+                    <div class="logo">QuickNote</div>
+                </div>
+            </header>
+
+            <main class="flex-grow">
+                <div class="container mx-auto px-4">
+                    <div class="auth-layout">
+                        <div class="intro-section">
+                            <h2>Smart Financial Management</h2>
+                            <div class="intro-content">
+                                <p>QuickNote helps you easily manage your personal finances. Whether it's daily expenses, spending trend analysis, or financial sharing, everything is at your fingertips.</p>
+                                <ul>
+                                    <li>Record income and expenses anytime, anywhere</li>
+                                    <li>Visualized reports to understand money flow</li>
+                                    <li>Efficiently organize transaction data</li>
+                                    <li>Freely choose to share your financial stories</li>
+                                </ul>
+                                <p>Designed for modern lifestyles, helping you develop better financial habits and achieve financial freedom.</p>
+                            </div>
+                        </div>
+                        <div class="auth-section">{% block content %}{% endblock %}</div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="py-4 mt-auto">
+                <div class="container mx-auto text-center text-gray-500 text-sm">
+                    <p>&copy; 2023 QuickNote - Simple, efficient personal finance application</p>
+                </div>
+            </footer>
+        </div>
+
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

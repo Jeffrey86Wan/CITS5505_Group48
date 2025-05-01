@@ -1,0 +1,79 @@
+Before diving into the best practices, please note that you need to adapt the globs depending on your project's specific file structure and requirements.
+
+---
+name: html-best-practices.mdc
+description: Best practices for HTML structure and semantics
+globs: **/*.html
+---
+
+- Use semantic HTML5 elements for better structure and accessibility
+- Ensure proper nesting of elements
+- Use alt attributes for images
+- Implement proper form labeling and validation
+
+---
+name: css-best-practices.mdc
+description: Best practices for CSS styling and organization
+globs: **/*.css
+---
+
+- Use a consistent naming convention (e.g., BEM)
+- Keep styles modular and reusable
+- Utilize CSS variables for theming
+- Optimize for performance by minimizing selectors and using shorthand properties
+
+---
+name: javascript-best-practices.mdc
+description: Best practices for JavaScript development
+globs: **/*.js
+---
+
+- Use strict mode
+- Implement proper error handling and logging
+- Utilize async/await for asynchronous operations
+- Follow the DRY (Don't Repeat Yourself) principle
+
+---
+name: tailwind-best-practices.mdc
+description: Best practices for using Tailwind CSS
+globs: **/*.html, **/*.js
+---
+
+- Use utility classes for rapid development
+- Create custom components for reusable UI elements
+- Optimize build times by using JIT mode
+- Implement responsive design using Tailwind's breakpoints
+
+
+---
+name: flask-best-practices.mdc
+description: Best practices for Flask web development
+globs: **/*.py
+---
+
+- Use Blueprints for modular routing
+- Implement proper error handling with custom error pages
+- Use environment variables for configuration
+- Utilize Flask-SQLAlchemy for database operations
+
+---
+name: sqlalchemy-best-practices.mdc
+description: Best practices for using SQLAlchemy with SQLite
+globs: **/*.py
+---
+
+- Use declarative base for defining models
+- Implement proper relationships between models
+- Use bulk operations for improved performance
+- Utilize SQLAlchemy's ORM for complex queries
+
+---
+name: ajax-best-practices.mdc
+description: Best practices for using AJAX
+globs: **/*.js
+---
+
+- Use the Fetch API for requests
+- Implement proper error handling and timeouts
+- Use JSON for data exchange
+- Consider using CORS for cross-origin requests

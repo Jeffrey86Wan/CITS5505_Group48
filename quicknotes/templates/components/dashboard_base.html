@@ -1,0 +1,34 @@
+{% extends "components/navigator_base.html" %} {% block content %}
+<div class="flex">
+    <!-- Left sidebar navigation -->
+    <div class="w-1/5 max-w-xs">
+        <div class="bg-white rounded-lg shadow-sm p-4 sticky top-4">
+            <div class="space-y-2">
+                <a href="{{ url_for('record.index') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'record' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+                    <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'record' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
+                        <i class="fas fa-plus text-sm"></i>
+                    </span>
+                    <span class="font-medium">Add Record</span>
+                </a>
+
+                <a href="{{ url_for('flow.index') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'flow' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+                    <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'flow' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
+                        <i class="fas fa-stream text-sm"></i>
+                    </span>
+                    <span class="font-medium">Transactions</span>
+                </a>
+
+                <a href="{{ url_for('financial_report') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'report' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+                    <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'report' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
+                        <i class="fas fa-chart-bar text-sm"></i>
+                    </span>
+                    <span class="font-medium">Reports</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right content area -->
+    <div class="flex-1 bg-white rounded-lg shadow-sm p-6 ml-6">{% block dashboard_content %}{% endblock %}</div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}QuickNote - Your Personal Finance Assistant{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body class="bg-beige-100">
+        <div class="min-h-screen flex flex-col">
+            <header class="bg-white shadow-sm">
+                <div class="container mx-auto py-3">
+                    <nav class="flex items-center justify-between">
+                        <!-- Logo and app name -->
+                        <div class="flex items-center">
+                            <a href="{{ url_for('index') }}" class="flex items-center">
+                                <span class="text-primary text-2xl font-bold mr-2"><i class="fas fa-yen-sign"></i></span>
+                                <span class="text-xl font-semibold text-primary">QuickNote</span>
+                            </a>
+                        </div>
+
+                        <!-- Navigation links -->
+                        <div class="flex items-center space-x-8">
+                            <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-primary transition duration-200 font-medium">Home</a>
+                            <a href="{{ url_for('public_sharing') }}" class="text-gray-700 hover:text-primary transition duration-200 font-medium">Sharing Area</a>
+                        </div>
+
+                        <!-- User info/login button -->
+                        <div class="relative">
+                            {% if g.user %}
+                            <div class="user-dropdown">
+                                <button class="user-avatar flex items-center space-x-2 focus:outline-none">
+                                    <img src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="User Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-primary" />
+                                    <span class="text-gray-700 font-medium hidden md:inline">{{ g.user.username }}</span>
+                                    <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+                                </button>
+                                <div class="user-dropdown-content absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10 hidden">
+                                    <div class="px-4 py-2 border-b border-gray-100">
+                                        <p class="text-sm font-medium text-gray-700">{{ g.user.username }}</p>
+                                    </div>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-user mr-2 text-primary"></i>
+                                        Profile
+                                    </a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-cog mr-2 text-primary"></i>
+                                        Settings
+                                    </a>
+                                    <div class="border-t border-gray-100 my-1"></div>
+                                    <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                        <i class="fas fa-sign-out-alt mr-2"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="flex items-center space-x-4">
+                                <a href="{{ url_for('auth.login') }}" class="text-gray-700 hover:text-primary transition duration-200 font-medium">Login</a>
+                                <a href="{{ url_for('auth.register') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition duration-200">Register</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="flex-grow">
+                <div class="container mx-auto px-4 py-6">{% block content %}{% endblock %}</div>
+            </main>
+
+            <footer class="py-4 mt-auto bg-white border-t border-gray-200">
+                <div class="container mx-auto text-center text-gray-500 text-sm">
+                    <p>&copy; 2023 QuickNote - Simple, efficient personal finance application</p>
+                </div>
+            </footer>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/navigator.js') }}"></script>
+
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

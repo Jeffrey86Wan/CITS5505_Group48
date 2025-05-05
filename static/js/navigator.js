@@ -1,3 +1,5 @@
+// static/js/navigator.js
+
 document.addEventListener("DOMContentLoaded", function () {
     // User avatar dropdown menu
     const userAvatar = document.querySelector(".user-avatar");

@@ -1,0 +1,42 @@
+{# templates/main/upload.html — route: /upload/ #}
+
+{% extends "components/dashboard_base.html" %}
+
+{% block title %}Upload & Edit PDF{% endblock %}
+
+{% block dashboard_content %}
+<h1 class="text-2xl font-bold mb-4">Upload Your Bank Statement (PDF)</h1>
+
+<form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data" class="mb-6">
+    <input type="file" name="pdf_file" class="form-control mb-2" accept="application/pdf" required {% if extracted_json %}disabled{% endif %}>
+    <button type="submit" class="btn btn-primary" {% if extracted_json %}disabled{% endif %}>Upload</button>
+</form>
+
+{% if extracted_json %}
+<div class="alert alert-info">Showing parsed results for <strong>{{ filename }}</strong></div>
+<div id="messageArea"></div>
+<div id="editableSection">
+    {% include 'partials/editable_table.html' with context %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) {
+            submitBtn.setAttribute('data-submit-url', '/upload/edit-upload');
+            submitBtn.setAttribute('data-mode', 'create');
+        }
+    });
+</script>
+<!-- Inject categories from Flask to JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const categories = {{ categories | tojson }};
+</script>
+
+<!-- Load the script that uses the above categories -->
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

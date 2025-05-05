@@ -1,3 +1,6 @@
+{# templates/components/dashboard_base.html #}
+
+
 {% extends "components/navigator_base.html" %} {% block content %}
 <div class="flex">
     <!-- Left sidebar navigation -->
@@ -12,17 +15,26 @@
                 </a>
 
                 <a href="{{ url_for('flow.index') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'flow' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+     
                     <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'flow' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
                         <i class="fas fa-stream text-sm"></i>
                     </span>
-                    <span class="font-medium">Transactions</span>
+                    <span class="font-medium">Manage Transactions</span>
                 </a>
 
-                <a href="{{ url_for('financial_report') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'report' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+                <a href="{{ url_for('upload.upload') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'upload' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
+                    <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'upload' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
+                        <i class="fas fa-upload text-sm"></i>
+                    </span>
+                    <span class="font-medium">Upload   -</span>
+                    <span class="text-xs font-medium">powered by GPT-4o</span>
+                </a>
+
+                <a href="{{ url_for('report.financial_report') }}" class="flex items-center p-3 rounded-lg {% if active_page == 'report' %}bg-primary text-white{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition duration-200">
                     <span class="w-8 h-8 flex items-center justify-center rounded-full {% if active_page == 'report' %}bg-white text-primary{% else %}bg-primary-light text-primary{% endif %} mr-3">
                         <i class="fas fa-chart-bar text-sm"></i>
                     </span>
-                    <span class="font-medium">Reports</span>
+                    <span class="font-medium">Reporting</span>
                 </a>
             </div>
         </div>

@@ -1,36 +1,91 @@
-{% extends "components/auth_base.html" %} {% block title %}Register - QuickNote{% endblock %} {% block content %}
+{% extends "components/auth_base.html" %} {% block title %}Register -
+ExpenseManager{% endblock %} {% block content %}
 <div class="auth-container">
-    <div class="auth-header">
-        <h1>Create New Account</h1>
-        <p>Register a new QuickNote account</p>
+  <div class="auth-header">
+    <h1>Create New Account</h1>
+    <p>Register a new ExpenseManager account</p>
+  </div>
+
+  <!-- ✅ FLASH MESSAGE BLOCK -->
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %}
+  <div class="mb-4">
+    {% for category, message in messages %}
+    <div
+      class="flash-message-auto-disappear p-2 rounded {% if category == 'success' %} bg-green-100 text-green-800 border border-green-400 {% else %} bg-red-100 text-red-800 border border-red-400 {% endif %}"
+    >
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+  <!-- ✅ END FLASH BLOCK -->
+
+  <!-- ✅ FORM starts here -->
+  <form method="post" action="/auth/register">
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" name="email" class="form-input" required />
     </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-    <div class="flash-messages flash-{{ category }}">{{ message }}</div>
-    {% endfor %} {% endif %} {% endwith %}
-
-    <form method="post" action="{{ url_for('auth.register') }}">
-        <div class="form-group">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-input" required />
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-input" required />
-        </div>
-
-        <div class="form-group">
-            <label for="confirm_password" class="form-label">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" class="form-input" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-
-    <div class="auth-footer">
-        Already have an account?
-        <a href="{{ url_for('auth.login') }}">Login Now</a>
+    <div class="form-group">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-input"
+        required
+      />
     </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-input"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="confirm_password" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+        class="form-input"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+  <!-- ✅ FORM ends here -->
+
+  <!-- Divider with "or" text -->
+  <div class="my-4 flex items-center">
+    <div class="flex-grow border-t border-gray-300"></div>
+    <span class="px-4 text-sm text-gray-500">or</span>
+    <div class="flex-grow border-t border-gray-300"></div>
+  </div>
+
+  <!-- Google Login Button -->
+  <div>
+    <button type="button" class="btn-google">
+      <img
+        src="{{ url_for('static', filename='img/icons/google.svg') }}"
+        alt="Google logo"
+      />
+      Sign up with Google
+    </button>
+  </div>
+
+  <div class="auth-footer">
+    Already have an account?
+    <a href="/auth/login">Login Now</a>
+  </div>
 </div>
 {% endblock %}

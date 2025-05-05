@@ -1,0 +1,61 @@
+<!-- partials/editable_table.html -->
+<div class="table-responsive">
+    <table id="transactionsTable" class="table table-bordered table-hover align-middle w-100">
+        <thead class="table-light">
+            <tr>
+                <th style="width: 5%;">🗑</th>
+                <th style="display:none">ID</th>
+                <th style="width: 12%;">Date</th>
+                <th style="width: 30%;">Description</th>
+                <th style="width: 12%;">Amount</th>
+                <th style="width: 10%;">Type</th>
+                <th style="width: 31%;">Category</th>
+            </tr>
+        </thead>
+        
+        <tbody class="table-group-divider">
+            {% for item in extracted_json %}
+            <tr>
+                <td><input type="checkbox" class="delete-checkbox"></td>
+                <td style="display:none"><input type="hidden" class="txn-id" value="{{ item.id }}"></td>
+                <td><input type="date" class="form-control" value="{{ item.date }}"></td>
+                <td><input type="text" class="form-control" value="{{ item.description }}"></td>
+                <td><input type="number" step="0.01" class="form-control" value="{{ item.amount }}"></td>
+                <td>
+                    <select class="form-select">
+                        <option value="debit" {% if item.type == 'debit' %}selected{% endif %}>Debit</option>
+                        <option value="credit" {% if item.type == 'credit' %}selected{% endif %}>Credit</option>
+                    </select>
+                </td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <select class="form-select category-selector w-100">
+                            {% for cat in categories %}
+                                <option value="{{ cat }}" {% if item.category == cat %}selected{% endif %}>{{ cat }}</option>
+                            {% endfor %}
+                            <option value="__custom__" {% if item.category not in categories %}selected{% endif %}>Other...</option>
+                        </select>
+                        <input type="text" class="form-control category-input mt-2"
+                               {% if item.category in categories %}style="display:none"{% endif %}
+                               value="{{ item.category if item.category not in categories else '' }}"
+                               placeholder="Enter new category">
+                    </div>
+                </td>                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-between">
+    <button id="addRowBtn" class="btn btn-secondary">➕ Add New Transaction</button>
+    <div>
+        <button id="deleteSelectedBtn" class="btn btn-danger">🗑️ Delete Selected</button>
+        <button id="submitBtn"
+                data-submit-url="{{ submit_url }}"
+                data-mode="{{ mode }}"
+                class="btn btn-success">
+            💾 Save All
+        </button>
+    </div>
+</div>

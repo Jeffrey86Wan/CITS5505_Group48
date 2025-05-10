@@ -1,4 +1,4 @@
-# Add at the top:
+#  routes/report.py
 from models.shared_report import SharedReport
 from models.shared_view import SharedView
 from models.user import User  # if not already imported
@@ -71,9 +71,11 @@ report_bp = Blueprint('report', __name__,url_prefix='/report')
 def report_data():
     db = get_db()
     params = request.args
+    print("🔍 Incoming filter params:", params)
     query = build_filtered_query(db, current_user, params)
     results = query.order_by(Transaction.date).all()
-
+    print(f"📦 Found {len(results)} transactions for user {current_user.email}")
+    
     # ✅ Mark shared reports as viewed if data belongs to a shared owner
     owner_id = params.get('owner_id')
     if owner_id and owner_id.isdigit() and int(owner_id) != current_user.id:
@@ -119,6 +121,9 @@ def report():
                   .filter(Transaction.user_id == current_user.id)
     ]
 
+    print(f"🗂 Categories for {current_user.email}: {categories}")
+    print(f"📅 Transaction dates: {transaction_dates}")
+    
     # All shares sent to the current user
     all_shared = db.query(SharedReport).options(joinedload(SharedReport.owner)).filter_by(recipient_id=current_user.id).all()
 

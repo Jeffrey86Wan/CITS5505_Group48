@@ -107,22 +107,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updatePieChart(data) {
         const totalsByCategory = {};
-
+    
         for (let txn of data) {
             if (txn.type === 'debit') {
                 const cat = txn.category || 'Uncategorized';
-                totalsByCategory[cat] = (totalsByCategory[cat] || 0) + txn.amount;
+                const amt = parseFloat(txn.amount);
+                console.log("Txn type:", txn.type, "Cat:", cat, "Amt:", txn.amount, typeof txn.amount);
+                if (!isNaN(amt)) {
+                    totalsByCategory[cat] = (totalsByCategory[cat] || 0) + amt;
+                }
             }
         }
-
+    
         const hasPieData = Object.keys(totalsByCategory).length > 0;
         document.getElementById('pieChartContainer').classList.toggle('hidden', !hasPieData);
-
+    
         const labels = Object.keys(totalsByCategory);
         const values = Object.values(totalsByCategory);
-
+    
+        console.log("Pie Labels:", labels);
+        console.log("Pie Values:", values);
+    
         if (pieChartInstance) pieChartInstance.destroy();
-
+    
         const pieCtx = document.getElementById('pieChart').getContext('2d');
         pieChartInstance = new Chart(pieCtx, {
             type: 'pie',
@@ -145,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+    
 
     // Share functionality
     const shareForm = document.getElementById('shareForm');
